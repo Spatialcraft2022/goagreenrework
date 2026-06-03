@@ -77,7 +77,7 @@ const isMobile = window.innerWidth <= 600;
 
 const view1 = new View({
     center: centerCoordinates,
-    zoom: isMobile ? 15 : 16.6,
+    zoom: isMobile ? 15 : 14.6,
     multiWorld: false,
     projection: mapProjection,
 });
