@@ -1,0 +1,99 @@
+/* Legend styles */
+#legend1 {
+    position: absolute;
+  
+    background: white;
+    padding: 10px;
+    border: 1px solid black;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 999;
+    right: 0;
+    top: 50%;
+    width: 300px;
+  }
+  
+#legend1 h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  
+  .legend-item {
+    margin-bottom: 10px;
+  }
+  
+  .legend-item p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .legend-item img {
+    display: block;
+    margin-top: 5px;
+  }
+  .legend-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .map-icon{
+height: 20px;
+width: 20px;
+  }
+
+  .form-check {
+    display: flex; /* Align items in a row */
+    align-items: center; /* Vertically center all items */
+    gap: 8px; /* Add some spacing between items (checkbox, image, and text) */
+}
+
+.form-check img {
+ 
+    height: auto; /* Keep aspect ratio */
+    margin-top: 0; /* Ensure image aligns correctly */
+}
+
+.form-check-label {
+    margin: 0; /* Remove any default margin */
+    line-height: 1; /* Ensures label text aligns properly */
+}
+
+  @media only screen and (max-width: 600px) {
+    .legend-icon
+    {
+      width: 20px; 
+      height: 20px; 
+      margin-right: 0px;
+    }
+    .map-icon{
+  height: 15px;
+  width: 15px;
+    }
+    .form-check {
+      display: flex; /* Keep items in a row */
+      align-items: center; /* Vertically align all elements */
+      gap: 3px; /* Adjust spacing for compact view */
+  }
+
+  .form-check img {
+      height: auto;
+      
+      margin: 0; /* No offset */
+  }
+
+  .form-check-label {
+      font-size: 8px; /* Compact but readable font size */
+      line-height: 2; /* Tighten spacing for alignment */
+      margin: 0; /* Remove default margins */
+  }
+
+  .form-check-input {
+      transform: scale(0.8); /* Slightly smaller checkbox for mobile */
+      margin: 0; /* Remove unnecessary offset */
+      align-self: center; /* Align checkbox with image and label */
+  }
+  }
