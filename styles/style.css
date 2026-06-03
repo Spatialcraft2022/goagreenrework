@@ -60,7 +60,7 @@ html, body {
 
 /* ── Feature button dock ────────────────────────────────────────────────────── */
 .feature-button {
-  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  position: fixed; bottom: 20px; right: 20px; left: auto; transform: none;
   background: var(--surface);
   backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--border-s); border-radius: 40px;
@@ -209,7 +209,7 @@ html, body {
 
   /* Feature dock — smaller buttons, wider pill */
   .feature-button {
-    bottom: 14px; padding: 6px 10px; gap: 6px; border-radius: 32px;
+    bottom: 14px; right: 14px; padding: 6px 10px; gap: 6px; border-radius: 32px;
   }
   .feature-btn { width: 36px; height: 36px; }
   .feature-btn i, .text-icon { font-size: 14px; }
