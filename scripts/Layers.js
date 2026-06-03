@@ -1,82 +1,57 @@
-// Importing the getLayerByName function from CustomFunctions.js
-import { getLayerByName } from "./customFunctions";
+import { getLayerByName } from './customFunctions';
 
-// Retrieve map data and layers from the map
 const map = $('#map').data('map');
 const layers = map.getLayers();
 const closer = $('#draggable-closer');
 
-// Wait for the document to be fully loaded
 $(document).ready(function () {
-    // Select draggable elements and set initial configurations
-    const layerdiv = $('#draggable');
-    const layerDivTitle = $('#draggable-title');
     const layerDivContent = $('#draggable-content');
-    layerDivTitle.html('Layers');
     layerDivContent.html('');
 
-    // First, add the "Plots" layer
+    // Plot Boundary first, then other WMS layers (skip basemaps)
+    const skipNames = ['OSM', 'Google Satellite', 'WFS'];
+
     layers.forEach(layer => {
-        const layerName = layer.get('name');
-        if (layerName === 'Plots') {
+        if (layer.get('name') === 'Plot Boundary') addLayerCheckbox(layer, layerDivContent);
+    });
+
+    layers.forEach(layer => {
+        const name = layer.get('name');
+        if (name && !skipNames.includes(name) && name !== 'Plot Boundary') {
             addLayerCheckbox(layer, layerDivContent);
         }
     });
 
-    // Then, add all other layers except "OSM" and "Google Satellite"
-    layers.forEach(layer => {
-        const layerName = layer.get('name');
-        if (layerName !== 'OSM' && layerName !== 'Google Satellite' && layerName !== 'Plots' && layerName !== 'WFS' ) {
-            addLayerCheckbox(layer, layerDivContent);
-        }
-    });
-
-    // Add change event listener to each checkbox
-    $('.form-check-input').change(function () {
-        const checkbox = this;
-        const layerName = $(this).attr('id'); // Use $(this).attr('id') to get the ID
-        const layers = map.getLayers().getArray(); // Retrieve all layers from the map
-        layers.forEach(layer => {
-            if (layer.get('name') && layer.get('name').replace(/[.\s]+/g, '_') === layerName) {
-                layer.setVisible(checkbox.checked); // Set the layer to Visible if the checkbox is clicked 
+    // Checkbox toggle
+    $(document).on('change', '.form-check-input', function () {
+        const id = $(this).attr('id');
+        map.getLayers().getArray().forEach(layer => {
+            if (layer.get('name') && layer.get('name').replace(/[.\s]+/g, '_') === id) {
+                layer.setVisible(this.checked);
             }
         });
     });
 
-    // Add click event listeners for displaying and closing draggable elements
-    $('#layers').click(function () {
-        layerdiv.css('display', 'block');
-    });
-
-    $('#closer').click(function () {
-        $('#draggable').css('display', 'none');
-    });
+    $('#closer').click(() => $('#draggable').css('display', 'none'));
+    $('#layers').click(() => $('#draggable').css('display', 'block'));
 });
 
-// Function to add layer checkbox with legend symbol to the layer div content
-function addLayerCheckbox(layer, layerDivContent) {
-    const layerName = layer.get('name');
-    if (layerName) {
-        const id = layerName.replace(/[.\s]+/g, '_'); // Replaces spaces with underscores
+function addLayerCheckbox(layer, container) {
+    const name = layer.get('name');
+    if (!name) return;
+    const id = name.replace(/[.\s]+/g, '_');
+    const legendUrl = layer.get('graphic') || '';
+    const iconClass = name === 'Map' ? 'map-icon' : 'legend-icon';
 
-        // Get the legend URL or graphic attribute
-        const legendUrl = layer.get('graphic');
+    const el = `
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="${id}">
+            <label class="form-check-label" for="${id}">
+                ${legendUrl ? `<img src="${legendUrl}" alt="${name}" class="${iconClass}">` : ''}
+                ${name}
+            </label>
+        </div>`;
 
-        // Determine the class for the legend icon based on the layer name
-        const iconClass = layerName === 'Map' ? 'map-icon' : 'legend-icon';
-
-        // Create the checkbox and add legend symbol
-        const element = `
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="${id}">
-                <label class="form-check-label" for="${id}">
-                    <img src="${legendUrl}" alt="${layerName} legend" class="${iconClass}"> 
-                    ${layerName}
-                </label>
-            </div>`;
-        
-        layerDivContent.append(element);
-        $(`#${id}`).prop('checked', layer.getVisible());
-    }
+    container.append(el);
+    $(`#${id}`).prop('checked', layer.getVisible());
 }
-
