@@ -50,7 +50,7 @@ html, body {
 
 /* ── Feature button dock ────────────────────────────────────────────────────── */
 .feature-button {
-  position: absolute; bottom: 24px; right: 24px;
+  position: fixed; bottom: 24px; right: 24px;
   background: var(--surface);
   backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--border-s); border-radius: 40px;

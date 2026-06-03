@@ -1,7 +1,7 @@
 // Function to zoom to the point of interest
-const zoom = $('#projectname');
-
 import { getLayerByName } from './customFunctions';
+
+const zoom = $('#projectname');
 const indicator = getLayerByName('Indicator');
 
 zoom.click(function() {

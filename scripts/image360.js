@@ -4,10 +4,10 @@ const closer = document.getElementById('closerBtn2');
 var sl = document.getElementById('myYouTubeIframe');
 
 player.addEventListener("click", function () {
-    if (img.style.display === "block") {
+    if (img.style.display === "flex") {
         img.style.display = "none";
     } else {
-        img.style.display = "block";
+        img.style.display = "flex";
         $('#centeredContainer').css('display', 'none');
     }
 });

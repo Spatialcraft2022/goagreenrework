@@ -32,8 +32,11 @@ $(document).ready(function () {
         });
     });
 
-    $('#closer').click(() => $('#draggable').css('display', 'none'));
-    $('#layers').click(() => $('#draggable').css('display', 'block'));
+    $('#draggable-closer').click(() => $('#draggable').hide());
+    $('#layers').click(() => {
+        const panel = $('#draggable');
+        panel.css('display', panel.css('display') === 'none' ? 'block' : 'none');
+    });
 });
 
 function addLayerCheckbox(layer, container) {
