@@ -5,7 +5,6 @@ import TileLayer from 'ol/layer/Tile';
 import { Image as ImageLayer } from 'ol/layer';
 import ImageWMS from 'ol/source/ImageWMS';
 import { OSM } from 'ol/source';
-import { ScaleLine } from 'ol/control.js';
 import XYZ from 'ol/source/XYZ.js';
 import proj4 from 'proj4';
 import { register } from 'ol/proj/proj4';
@@ -20,9 +19,6 @@ register(proj4);
 const mapProjection = getProjection('EPSG:32643');
 // Explicit extent lets OL build a correct tile grid for TileWMS
 mapProjection.setExtent([166022, 0, 833978, 9329005]);
-
-// ── Scale bar ────────────────────────────────────────────────────────────────
-const control = new ScaleLine({ units: 'metric', steps: 1, bar: true, text: true, minWidth: 100, className: 'scale' });
 
 // ── Basemaps ─────────────────────────────────────────────────────────────────
 const Osmlayer = new TileLayer({
@@ -88,7 +84,7 @@ const view1 = new View({
 
 // ── Map ───────────────────────────────────────────────────────────────────────
 const map = new Map({
-    controls: [control],
+    controls: [],
     target: 'map',
     layers: [googlesatellite, Osmlayer, ortholayer, plotslayer],
     view: view1,
