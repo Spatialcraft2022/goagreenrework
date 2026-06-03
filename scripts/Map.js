@@ -14,6 +14,13 @@ import { get as getProjection } from 'ol/proj';
 // ── WMS base URL ────────────────────────────────────────────────────────────
 const WMS_URL = 'https://reservemyplot.com/cgi-bin/qgis_mapserv.fcgi?MAP=/home/qgis/goagreen/goagreen.qgs';
 
+// ── Projection (must be set up BEFORE any layer that uses it) ────────────────
+proj4.defs('EPSG:32643', '+proj=utm +zone=43 +datum=WGS84 +units=m +no_defs');
+register(proj4);
+const mapProjection = getProjection('EPSG:32643');
+// Explicit extent lets OL build a correct tile grid for TileWMS
+mapProjection.setExtent([166022, 0, 833978, 9329005]);
+
 // ── Scale bar ────────────────────────────────────────────────────────────────
 const control = new ScaleLine({ units: 'metric', steps: 1, bar: true, text: true, minWidth: 100, className: 'scale' });
 
@@ -39,7 +46,6 @@ const googlesatellite = new TileLayer({
 });
 
 // ── WMS layers ───────────────────────────────────────────────────────────────
-// Orthophoto — TileWMS for raster (512px tiles, fewer HTTP requests)
 const ortholayer = new TileLayer({
     source: new TileWMS({
         url: WMS_URL,
@@ -47,6 +53,7 @@ const ortholayer = new TileLayer({
         serverType: 'qgis',
         crossOrigin: 'anonymous',
         tileSize: [512, 512],
+        projection: mapProjection,
     }),
     visible: true,
     preload: 0,
@@ -55,12 +62,12 @@ const ortholayer = new TileLayer({
     graphic: './maplegend.png',
 });
 
-// Plot boundary — ImageWMS (single viewport image, no label duplication)
 const plotslayer = new ImageLayer({
     source: new ImageWMS({
         url: WMS_URL,
         params: { LAYERS: 'plots', TRANSPARENT: true, FORMAT: 'image/png' },
         serverType: 'qgis',
+        crossOrigin: 'anonymous',
         ratio: 1,
     }),
     visible: true,
@@ -68,12 +75,7 @@ const plotslayer = new ImageLayer({
     graphic: '',
 });
 
-// ── Projection ───────────────────────────────────────────────────────────────
-proj4.defs('EPSG:32643', '+proj=utm +zone=43 +datum=WGS84 +units=m +no_defs');
-register(proj4);
-const mapProjection = getProjection('EPSG:32643');
-
-// ── View ──────────────────────────────────────────────────────────────────────
+// ── View ─────────────────────────────────────────────────────────────────────
 const centerCoordinates = centerpoint.split(',').map(parseFloat);
 const isMobile = window.innerWidth <= 600;
 
