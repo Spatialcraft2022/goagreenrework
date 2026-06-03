@@ -127,11 +127,12 @@ html, body {
 /* ── Powered by ─────────────────────────────────────────────────────────────── */
 #poweredBy {
   position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-  font-size: 10px; color: var(--text-muted); z-index: 100;
+  font-size: 11px; font-weight: 600; z-index: 100;
   white-space: nowrap; pointer-events: auto;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.9);
 }
-#poweredBy a { color: var(--accent); text-decoration: none; }
-#poweredBy a:hover { text-decoration: underline; }
+#poweredBy a { color: #ffffff; text-decoration: none; letter-spacing: 0.4px; }
+#poweredBy a:hover { color: var(--accent); }
 
 /* ── Measure form ───────────────────────────────────────────────────────────── */
 #measureFormUnique456 {
