@@ -100,7 +100,7 @@ html, body {
   backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--border-s); border-radius: var(--radius);
   box-shadow: var(--shadow); min-width: 200px; max-width: 260px;
-  z-index: 9998; display: none; overflow: hidden;
+  z-index: 9998; display: block; overflow: hidden;
 }
 
 #draggable-header {
@@ -125,7 +125,7 @@ html, body {
 
 /* ── Scale bar ──────────────────────────────────────────────────────────────── */
 .scale {
-  position: absolute; bottom: 28px; left: 12px;
+  position: absolute; bottom: 6px; left: 12px;
   background: var(--surface) !important;
   backdrop-filter: var(--glass-blur) !important;
   border: 1px solid var(--border-s) !important;
@@ -135,7 +135,7 @@ html, body {
 
 /* ── Powered by ─────────────────────────────────────────────────────────────── */
 #poweredBy {
-  position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: 6px; right: 12px; left: auto; transform: none;
   font-size: 10px; color: var(--text-muted); z-index: 100;
   background: var(--surface); padding: 2px 8px; border-radius: 4px;
   border: 1px solid var(--border); white-space: nowrap;

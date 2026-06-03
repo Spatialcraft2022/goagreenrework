@@ -33,10 +33,6 @@ $(document).ready(function () {
     });
 
     $('#draggable-closer').click(() => $('#draggable').hide());
-    $('#layers').click(() => {
-        const panel = $('#draggable');
-        panel.css('display', panel.css('display') === 'none' ? 'block' : 'none');
-    });
 });
 
 function addLayerCheckbox(layer, container) {
