@@ -1,18 +1,19 @@
-# OpenLayers + Vite
+# Goa Greens — WebGIS Map Application
 
-This example demonstrates how the `ol` package can be used with [Vite](https://vitejs.dev/).
+Built with OpenLayers + Vite, served via QGIS Server.
 
-To get started, run the following (requires Node 14+):
+## Development
 
-    npx create-ol-app my-app --template vite
+```bash
+npm start        # dev server at http://localhost:5173
+npm run build    # production build → dist/
+npm run serve    # preview dist/
+```
 
-Then change into your new `my-app` directory and start a development server (available at http://localhost:5173):
+## Changelog
 
-    cd my-app
-    npm start
-
-To generate a build ready for production:
-
-    npm run build
-
-Then deploy the contents of the `dist` directory to your server.  You can also run `npm run serve` to serve the results of the `dist` directory for preview.
+| Version | Date | Changes |
+|---------|------|---------|
+| v1.0.3 | 2026-06-04 | SpatialCraft logo replaces poweredBy text watermark; client logo (`companylogo`) wired to nav — hidden when empty |
+| v1.0.2 | — | Responsive design pass |
+| v1.0.1 | — | Initial release |
