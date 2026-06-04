@@ -24,7 +24,7 @@
     <script>
       const projectname = "Goa Greens"
       const imglocation = ""
-      const companylogo = "/SpatialCraft-Color-Logomark.png"
+      const companylogo = ""
       const centerpoint = "392235.7,1732869.3"
       const youtubelink = "https://www.canva.com/design/DAGhVH5GkgY/ENHYkuffHy5MBsxd3NYsZA/watch?embed"
       const threesixtylink = "https://kuula.co/share/collection/7bRfQ?logo=0&info=1&fs=1&vr=0&sd=1&thumbs=1"
@@ -34,6 +34,12 @@
         $("#sidebar-Title").text(projectname);
         $("#youtube_vid").attr("src", youtubelink);
         $("#threesixty_image").attr("src", threesixtylink);
+
+        if (companylogo) {
+          $("#companylogo").attr("src", companylogo).show();
+        } else {
+          $(".logo").hide();
+        }
       });
     </script>
 </head>
@@ -42,7 +48,7 @@
   <!-- Map -->
   <div id="map"></div>
 
-  <div id="poweredBy"><a href="https://spatialcraft.in/" target="_blank">SpatialCraft</a></div>
+  <div id="poweredBy"><a href="https://spatialcraft.in/" target="_blank"><img src="/logo.png" alt="SpatialCraft"></a></div>
 
   <!-- Measurement Form -->
   <div id="measureFormUnique456" class="hidden">
@@ -92,7 +98,7 @@
     </button>
     <p id="projectname">PROJECT NAME</p>
     <div class="logo">
-      <img id="companylogo" src="SpatialCraft-Color-Logomark.png" alt="Company Logo">
+      <img id="companylogo" src="" alt="Company Logo" style="display:none;">
     </div>
   </div>
 
