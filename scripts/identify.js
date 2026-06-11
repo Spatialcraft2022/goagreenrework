@@ -55,13 +55,17 @@ map.on('singleclick', function (evt) {
       const Area = clickedFeature.get('area');
       const availibilty = clickedFeature.get('avail');
 
+      function escHtml(s) {
+        return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
       const plotsinfo = $('#info');
       let popupHTML = `<h5>Plot Info:</h5><br>
         <style>
           h5 { font-size: 20px }
         </style>
-        <p>Plot Number: ${Survey_No}</p>
-        <p>Plot Area: ${Area} sqm</p><br>`;
+        <p>Plot Number: ${escHtml(Survey_No)}</p>
+        <p>Plot Area: ${escHtml(Area)} sqm</p><br>`;
 
       if (availibilty && availibilty.trim().toLowerCase() === 'available') {
         popupHTML += `<p>Status: <strong style="color:green;">Available</strong></p>`;

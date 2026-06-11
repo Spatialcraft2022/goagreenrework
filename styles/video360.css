@@ -1,40 +1,28 @@
-#centeredContainer,
-#centeredContainer2 {
+/* ── Video / 360 overlay ────────────────────────────────────
+   popup.css owns the fullscreen overlay and modal box styles.
+   This file only adds the close-button and mobile responsive.
+   ─────────────────────────────────────────────────────────── */
+
+/* Close button inside video/360 modal */
+#closerBtn, #closerBtn2 {
   position: absolute;
-  top: 50%;
-  left: 55%;
-  transform: translate(-50%, -50%);
-  height: 50%;
-  width: 50%;
-  display: none;
-  background-color: #fff;
+  top: 10px;
+  right: 12px;
+  width: 30px; height: 30px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  z-index: 10001;
+  transition: background 0.15s;
 }
-
-
-#youtubevideodiv,
-#threesixty_div {
-  position: relative;
-  width: 100%;
-  height: 100%;
+#closerBtn::after, #closerBtn2::after {
+  content: '\2716';
+  font-size: 14px;
+  line-height: 1;
 }
-
-#youtube_vid,
-#threesixty_image {
-  width: 100%;
-  height: 100%;
-}
-
-
-
-@media only screen and (max-width: 600px) {
-    #centeredContainer,
-  #centeredContainer2 {
-    position: absolute;
-    top: 60%;
-    left: 55%;
-    transform: translate(-50%, -50%);
-    height: 40%;
-    width: 60%;
-    display: none;
-    background-color: #fff;
-  }}
+#closerBtn:hover, #closerBtn2:hover { background: rgba(248,113,113,0.5); }
