@@ -1,35 +1,17 @@
-// Import required modules and CSS
 import 'ol/ol.css';
 import Overlay from 'ol/Overlay.js';
-import { toLonLat } from 'ol/proj.js';
-import { toStringHDMS } from 'ol/coordinate.js';
 import { getLayerByName } from './customFunctions';
 
 const map = $('#map').data('map');
-const mapLayers = map.getLayers();
 
-/**
- * Elements that make up the popup.
- */
 const container = document.getElementById('popup');
-const content = document.getElementById('popup-content');
 const closer = document.getElementById('popup-closer');
 
-/**
- * Create an overlay to anchor the popup to the map.
- */
 const overlay = new Overlay({
   element: container,
-  autoPan: {
-    animation: {
-      duration: 250,
-    },
-  },
+  autoPan: { animation: { duration: 250 } },
 });
 
-/**
- * Add a click handler to hide the popup.
- */
 closer.onclick = function () {
   overlay.setPosition(undefined);
   closer.blur();
@@ -38,32 +20,41 @@ closer.onclick = function () {
 
 map.addOverlay(overlay);
 
-/**
- * Add a click handler to the map to render the popup.
- */
+function escHtml(s) {
+  return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 map.on('singleclick', function (evt) {
   const coordinate = evt.coordinate;
-
   const plotsLayer = getLayerByName('Plot Boundary');
-  if (plotsLayer && plotsLayer.getVisible()) {
-    const clickedFeature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
-      return feature;
-    });
 
-    if (clickedFeature) {
-      const Survey_No = clickedFeature.get('plot_no');
-      const Area = clickedFeature.get('area');
-      const availibilty = clickedFeature.get('avail');
+  if (!plotsLayer || !plotsLayer.getVisible()) return;
 
-      function escHtml(s) {
-        return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const view = map.getView();
+  const url = plotsLayer.getSource().getFeatureInfoUrl(
+    coordinate,
+    view.getResolution(),
+    view.getProjection(),
+    { INFO_FORMAT: 'application/json', FEATURE_COUNT: 1 }
+  );
+
+  if (!url) return;
+
+  fetch(url)
+    .then(r => r.json())
+    .then(data => {
+      if (!data.features || data.features.length === 0) {
+        overlay.setPosition(undefined);
+        return;
       }
 
-      const plotsinfo = $('#info');
+      const props = data.features[0].properties;
+      const Survey_No = props.plot_no;
+      const Area = props.area;
+      const availibilty = props.avail;
+
       let popupHTML = `<h5>Plot Info:</h5><br>
-        <style>
-          h5 { font-size: 20px }
-        </style>
+        <style>h5 { font-size: 20px }</style>
         <p>Plot Number: ${escHtml(Survey_No)}</p>
         <p>Plot Area: ${escHtml(Area)} sqm</p><br>`;
 
@@ -73,9 +64,11 @@ map.on('singleclick', function (evt) {
         popupHTML += `<p>Status: <strong style="color:red;">Sold</strong></p>`;
       }
 
-      plotsinfo.html(popupHTML);
+      $('#info').html(popupHTML);
       $('#no-feature').html('');
       overlay.setPosition(coordinate);
-    }
-  }
+    })
+    .catch(() => {
+      overlay.setPosition(undefined);
+    });
 });
