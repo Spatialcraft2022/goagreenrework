@@ -44,7 +44,7 @@ map.addOverlay(overlay);
 map.on('singleclick', function (evt) {
   const coordinate = evt.coordinate;
 
-  const plotsLayer = getLayerByName('WFS');
+  const plotsLayer = getLayerByName('Plot Boundary');
   if (plotsLayer && plotsLayer.getVisible()) {
     const clickedFeature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
       return feature;

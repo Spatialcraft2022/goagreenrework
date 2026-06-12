@@ -17,7 +17,7 @@
     <script>
       const projectname = "Goa Greens"
       const imglocation = ""
-      const companylogo = "/SpatialCraft-Color-Logomark.png"
+      const companylogo = ""
       const centerpoint = "392235.7,1732869.3"
       const youtubelink = "https://www.canva.com/design/DAGhVH5GkgY/ENHYkuffHy5MBsxd3NYsZA/watch?embed"
       const threesixtylink = "https://kuula.co/share/collection/7bRfQ?logo=0&info=1&fs=1&vr=0&sd=1&thumbs=1"
@@ -27,17 +27,23 @@
         $("#sidebar-Title").text(projectname);
         $("#youtube_vid").attr("src", youtubelink);
         $("#threesixty_image").attr("src", threesixtylink);
+
+        if (companylogo) {
+          $("#companylogo").attr("src", companylogo).show();
+        } else {
+          $(".logo").hide();
+        }
       });
     </script>
-  <script type="module" crossorigin src="./index-_a1ERJm9.js"></script>
-  <link rel="stylesheet" crossorigin href="./index-C5xuJk7q.css">
+  <script type="module" crossorigin src="./index-DSVzpm8g.js"></script>
+  <link rel="stylesheet" crossorigin href="./index-CWg6qYSy.css">
 </head>
 <body>
 
   <!-- Map -->
   <div id="map"></div>
 
-  <div id="poweredBy"><a href="https://spatialcraft.in/" target="_blank">SpatialCraft</a></div>
+  <div id="poweredBy"><a href="https://spatialcraft.in/" target="_blank"><img src="./logo-iyJ0t5AA.png" alt="SpatialCraft"></a></div>
 
   <!-- Measurement Form -->
   <div id="measureFormUnique456" class="hidden">
@@ -87,7 +93,7 @@
     </button>
     <p id="projectname">PROJECT NAME</p>
     <div class="logo">
-      <img id="companylogo" src="data:image/png;base64,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" alt="Company Logo">
+      <img id="companylogo" src="" alt="Company Logo" style="display:none;">
     </div>
   </div>
 
